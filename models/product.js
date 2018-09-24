@@ -1,4 +1,4 @@
-// models de teste
+// model test de uso do mongo db
 'use strict'
 
 const mongoose = require('mongoose');

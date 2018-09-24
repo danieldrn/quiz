@@ -1,6 +1,7 @@
 var express = require('express');
 var consign = require('consign');
 var bodyParse = require('body-parser');
+var Product = require('../models/product');
 
 module.exports = function(){
     
