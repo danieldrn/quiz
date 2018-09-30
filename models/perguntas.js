@@ -27,6 +27,11 @@ const schema = new Schema({
         type: Number,
         required: true
     },
+    estaAtiva: {
+        type: Boolean,
+        required: true,
+        default: true
+    }
 
 });
 
