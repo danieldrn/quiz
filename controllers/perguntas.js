@@ -7,7 +7,27 @@ module.exports = function (app) {
 
     app.post('/Pergunta', function (req, res) {
 
-        var pergunta = new Pergunta(req.body);
+        var data = req.body;
+
+
+        try {
+            var service = new app.services.perguntaService();
+            var Tres = service.validarDados(data);
+
+            if(!Tres.status){
+                res.status(400).send({
+                    message: Tres.message,
+                    //data: 
+                });
+               
+            }
+
+
+        } catch (error) {
+            console.log(error + Tres)
+        }
+
+        var pergunta = new Pergunta(data);
 
         pergunta.save()
             .then(x => {
