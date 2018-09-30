@@ -1,34 +1,30 @@
 'use strict';
 
-module.exports = function (app) {
+module.exports = function(app) {
 
     const mongoose = require('mongoose');
     const Pergunta = mongoose.model('Pergunta');
 
-    app.post('/Pergunta', function (req, res) {
+    app.post('/pergunta', function(req, res) {
 
         var data = req.body;
 
-
         try {
-            var service = new app.services.perguntaService();
-            var Tres = service.validarDados(data);
+            var servicePergunta = new app.services.perguntaService();
+            var responseValidation = servicePergunta.validarDados(data);
 
-            if(!Tres.status){
+            if (!responseValidation.status) {
                 res.status(400).send({
-                    message: Tres.message,
-                    //data: 
+                    message: responseValidation.message,
                 });
-               
             }
 
 
         } catch (error) {
-            console.log(error + Tres)
+            console.log(error + responseValidation)
         }
 
         var pergunta = new Pergunta(data);
-
         pergunta.save()
             .then(x => {
                 res.status(201).send({ message: 'Pergunta cadastrada com sucesso' });
@@ -40,29 +36,83 @@ module.exports = function (app) {
             });
     });
 
-    app.get('/product', function (req, res) {
+    app.get('/pergunta', function(req, res) {
 
-        Product.find({}, 'title price')
+        Pergunta.find({}, 'pergunta respostas categoria')
             .then(data => {
                 res.status(201).send(data);
             }).catch(e => {
                 res.status(400).send({
-                    message: 'Produto encontrado',
+                    message: 'Pergunta não encontrada',
                     data: e
                 });
             });
     });
 
-    app.post('/product/obenhaProduto', function (req, res) {
+    app.get('/pergunta/:id', function(req, res) {
 
-        var data = req.body;
+        var param = req.params;
 
-        Product.find({ title: data.title }, 'title price')
+        Pergunta.findById(param.id, 'pergunta respostas categoria')
             .then(data => {
                 res.status(201).send(data);
             }).catch(e => {
                 res.status(400).send({
-                    message: 'Produto encontrado',
+                    message: 'Pergunta não encontrada',
+                    data: e
+                });
+            });
+    });
+
+    app.get('/pergunta/:pergunta', function(req, res) {
+
+        var data = req.body;
+
+        Pergunta.find({ title: data.title }, 'pergunta respostas categoria')
+            .then(data => {
+                res.status(201).send(data);
+            }).catch(e => {
+                res.status(400).send({
+                    message: 'Pergunta não encontrada !',
+                    data: e
+                });
+            });
+    });
+
+    app.put('/pergunta/:id', function(req, res) {
+
+        var param = req.params;
+        var data = req.body;
+
+        Pergunta.findByIdAndUpdate(param.id, {
+            $set: {
+                pergunta: data.pergunta,
+                respostas: data.respostas,
+                categoria: data.categoria
+            }
+        })
+            .then(data => {
+                res.status(201).send('Pergunta atualizada com sucesso' + data);
+            }).catch(e => {
+                res.status(400).send({
+                    message: 'Falha ao atualizar o produto !',
+                    data: e
+                });
+            });
+    });
+
+    app.delete('/pergunta/:id', function(req, res) {
+
+        var param = req.params;
+        var data = req.body;
+
+        Pergunta.findByIdAndDelete(param.id, {
+        })
+            .then(data => {
+                res.status(201).send('Pergunta removida com sucesso' + data);
+            }).catch(e => {
+                res.status(400).send({
+                    message: 'Falha ao remover a pergunta !',
                     data: e
                 });
             });
