@@ -9,10 +9,6 @@ const schema = new Schema({
         required: true,
     },
     respostas: [{
-        type: String,
-        required: true
-    }],
-    categoria: {
         label: {
             type: String,
             required: true
@@ -26,8 +22,12 @@ const schema = new Schema({
             required: true,
             default: true
         }
+    }],
+    categoria: {
+        type: Number,
+        required: true
     },
 
 });
 
-module.exports = mongoose.model('Product', schema);
+module.exports = mongoose.model('Pergunta', schema);

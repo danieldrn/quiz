@@ -2,6 +2,7 @@ var express = require('express');
 var consign = require('consign');
 var bodyParse = require('body-parser');
 var Product = require('../models/product');
+var Pergunta = require('../models/perguntas');
 
 module.exports = function(){
     
