@@ -10,15 +10,25 @@ module.exports = function (app) {
         var data = req.body;
 
         if (ehVetorDePergunta(data)) {
+
             data.forEach(element => {
-                valideEstadoDosObjetos(app, element, res);
-                var pergunta = new Pergunta(data);
-                persistaPerguntas(pergunta, element, res);
+                var estaValido = valideEstadoDosObjetos(app, element, res);
+
+                if (estaValido == 'true') {
+                    persistaPerguntas(element, res, ehVetorDePergunta(data));
+                }
+
             });
 
+            res.status(201).send({ message: 'Perguntas cadastrada com sucesso' });
+
         } else {
-            valideEstadoDosObjetos(data, res);
-            persistaPerguntas(data, res);
+
+            let estaValido = valideEstadoDosObjetos(app, data, res);
+
+            if(estaValido == 'true'){
+                persistaPerguntas(data, res);
+            }
         }
 
     });
@@ -132,11 +142,11 @@ function ehVetorDePergunta(data) {
     }
 }
 
-function persistaPerguntas(pergunta, data, res, ehVetor) {
+function persistaPerguntas(data, res, ehVetor) {
 
     var mongoose = require('mongoose');
     const Pergunta = mongoose.model('Pergunta');
-    pergunta = new Pergunta(data);
+    var pergunta = new Pergunta(data);
 
     if (!ehVetor) {
         pergunta.save()
@@ -158,22 +168,27 @@ function persistaPerguntas(pergunta, data, res, ehVetor) {
                 data: error
             });
         }
-        
-        res.status(201).send({ message: 'Pergunta cadastrada com sucesso' });
+
     }
 }
 
 function valideEstadoDosObjetos(app, data, res) {
 
     try {
+
         var servicePergunta = new app.services.perguntaService();
         var responseValidation = servicePergunta.validarDados(data);
 
         if (!responseValidation.status) {
+
             res.status(400).send({
                 message: responseValidation.message,
             });
+
+            return false;
         }
+
+        return true;
 
     } catch (error) {
         console.log(error + responseValidation)

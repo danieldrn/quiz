@@ -8,10 +8,19 @@ class perguntaService {
             return { status: false, message: "pergunta Obrigatória" };
         }
 
-        if (!this.valideExistenciaDeApenasUmasRespostaCorreta(data)) {
+        var valideConsistenciaDasCondicoes = this.valideConsistenciaDasCondicoes(data);
+
+        if(valideConsistenciaDasCondicoes){
             return {
-                status: false, message: "Deve Existir apenas uma " +
-                    "condição verdadeira entre as respostas"
+                status: false, message: valideConsistenciaDasCondicoes
+            }; 
+        }
+
+        var validacaoDeCondicoes = this.valideExistenciaDeApenasUmaRespostaCorreta(data);
+
+        if(validacaoDeCondicoes){
+            return {
+                status: false, message: validacaoDeCondicoes
             };
         }
 
@@ -36,9 +45,11 @@ class perguntaService {
         return { status: true };
     }
 
-    valideExistenciaDeApenasUmasRespostaCorreta(resposta) {
+    valideExistenciaDeApenasUmaRespostaCorreta(resposta) {
 
-        var cont = 0;
+        var contTrue = 0;
+        var contFalse = 0;
+
         var respostas = resposta.respostas;
 
         respostas.forEach(resp => {
@@ -46,16 +57,56 @@ class perguntaService {
             var cond = resp.condicao;
 
             if (cond == "true") {
-                cont = cont + 1;
+                contTrue = contTrue + 1;
+            } else {
+                contFalse = contFalse + 1;
             }
         });
 
-        if (cont == 1) {
-            return true;
-        } else {
-            return false;
+        if (contTrue > 1) {
+
+            return {
+                message: "Deve Existir apenas uma " +
+                    "condição verdadeira entre as respostas"
+            };
+
+        } else if (contFalse == 5) {
+
+            return {
+                message: "Deve Existir uma " +
+                    "condição verdadeira entre as respostas"
+            };
         }
     }
+
+    valideConsistenciaDasCondicoes(data){
+
+        var contador = 1;
+
+        for (const resp of data.respostas) {
+
+            if(!resp.label){
+                return {
+                    message: "Deve ser informada a label para a alternativa " + contador
+                };
+            }
+
+            if(!resp.descricao){
+                return {
+                    message: "Deve ser informada a descricao para a alternativa " + contador
+                };
+            }
+
+            if(!resp.condicao){
+                return {
+                    message: "Deve ser informada a condicao para a alternativa " + contador
+                };
+            }
+
+            contador++;
+        }     
+    }
+
 }
 
 module.exports = function () {
