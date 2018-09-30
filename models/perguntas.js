@@ -29,7 +29,7 @@ const schema = new Schema({
     },
     estaAtiva: {
         type: Boolean,
-        required: true,
+        required: false,
         default: true
     }
 

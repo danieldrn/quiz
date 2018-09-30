@@ -15,14 +15,14 @@ class perguntaService {
             };
         }
 
-        if (!data.respostas.length > 5) {
+        if (data.respostas.length > 5) {
             return {
                 status: false, message: "A quantidade " +
                     "maxima de respostas cadastradas pra a pergunta de ser de apenas 5(cinco)"
             };
         }
 
-        if (!data.respostas.length < 5) {
+        if (data.respostas.length < 5) {
             return {
                 status: false, message: "A quantidade " +
                     "minima de respostas cadastradas pra a pergunta de ser de apenas 5(cinco)"
@@ -36,13 +36,17 @@ class perguntaService {
         return { status: true };
     }
 
-    valideExistenciaDeApenasUmasRespostaCorreta($resposta) {
+    valideExistenciaDeApenasUmasRespostaCorreta(resposta) {
 
-        let cont = 0;
+        var cont = 0;
+        var respostas = resposta.respostas;
 
-        resposta.forEach(element => {
-            if (element.condicao == true) {
-                cont++;
+        respostas.forEach(resp => {
+
+            var cond = resp.condicao;
+
+            if (cond == "true") {
+                cont = cont + 1;
             }
         });
 
