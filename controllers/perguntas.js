@@ -26,7 +26,7 @@ module.exports = function (app) {
 
             let estaValido = valideEstadoDosObjetos(app, data, res);
 
-            if(estaValido == 'true'){
+            if(estaValido){
                 persistaPerguntas(data, res);
             }
         }
