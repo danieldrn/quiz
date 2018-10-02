@@ -10,6 +10,11 @@ module.exports = function(){
     
     app.use(bodyParse.urlencoded({ extended: false }));
     app.use(bodyParse.json());
+    
+    app.use(function (err, req, res, next) {
+        console.error(err.stack);
+        res.status(500).send('ACONTECEU UM ERRO \r\nDETALHES DO ERRO \r\n' + err.stack);
+    });
 
     consign()
         .include('controllers')
