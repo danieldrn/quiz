@@ -8,6 +8,13 @@ class perguntaService {
             return { status: false, message: "pergunta Obrigatória" };
         }
 
+        if (data.respostas.length > 5) {
+            return {
+                status: false, message: "A quantidade " +
+                    "maxima de respostas cadastradas pra a pergunta de ser de apenas 5(cinco)"
+            };
+        }
+
         var valideConsistenciaDasCondicoes = this.valideConsistenciaDasCondicoes(data);
 
         if(valideConsistenciaDasCondicoes){
@@ -21,13 +28,6 @@ class perguntaService {
         if(validacaoDeCondicoes){
             return {
                 status: false, message: validacaoDeCondicoes
-            };
-        }
-
-        if (data.respostas.length > 5) {
-            return {
-                status: false, message: "A quantidade " +
-                    "maxima de respostas cadastradas pra a pergunta de ser de apenas 5(cinco)"
             };
         }
 
