@@ -9,27 +9,16 @@ module.exports = function (app) {
 
         var data = req.body;
 
-        if (ehVetorDePergunta(data)) {
+        for (let pergunta of data) {
 
-            data.forEach(element => {
-                var estaValido = valideEstadoDosObjetos(app, element, res);
+            var estaValido = valideEstadoDosObjetos(app, pergunta, res);
 
-                if (estaValido == 'true') {
-                    persistaPerguntas(element, res, ehVetorDePergunta(data));
-                }
-
-            });
-
-            res.status(201).send({ message: 'Perguntas cadastrada com sucesso' });
-
-        } else {
-
-            let estaValido = valideEstadoDosObjetos(app, data, res);
-
-            if(estaValido){
-                persistaPerguntas(data, res);
+            if (estaValido) {
+                persistaPerguntas(pergunta, res, ehVetorDePergunta(data));
             }
         }
+
+        res.status(201).send({ message: 'Perguntas cadastrada com sucesso' });
 
     });
 
@@ -37,9 +26,9 @@ module.exports = function (app) {
 
         Pergunta.find({}, 'pergunta respostas categoria')
             .then(data => {
-                res.status(201).send(data);
+                res.status(200).send(data);
             }).catch(e => {
-                res.status(400).send({
+                res.status(404).send({
                     message: 'Pergunta não encontrada',
                     data: e
                 });
@@ -52,24 +41,24 @@ module.exports = function (app) {
 
         Pergunta.findById(param.id, 'pergunta respostas categoria')
             .then(data => {
-                res.status(201).send(data);
+                res.status(200).send(data);
             }).catch(e => {
-                res.status(400).send({
+                res.status(404).send({
                     message: 'Pergunta não encontrada',
                     data: e
                 });
             });
     });
 
-    app.get('/pergunta/:pergunta', function (req, res) {
+    app.get('/pergunta/titulo/:pergunta', function (req, res) {
 
-        var data = req.body;
+        var param = req.params;
 
-        Pergunta.find({ title: data.title }, 'pergunta respostas categoria')
+        Pergunta.find({ pergunta: param.pergunta }, 'pergunta respostas categoria')
             .then(data => {
-                res.status(201).send(data);
+                res.status(200).send(data);
             }).catch(e => {
-                res.status(400).send({
+                res.status(404).send({
                     message: 'Pergunta não encontrada !',
                     data: e
                 });
@@ -92,7 +81,7 @@ module.exports = function (app) {
                 res.status(201).send('Pergunta atualizada com sucesso' + data);
             }).catch(e => {
                 res.status(400).send({
-                    message: 'Falha ao atualizar o produto !',
+                    message: 'Falha ao atualizar a pergunta !',
                     data: e
                 });
             });
@@ -105,9 +94,9 @@ module.exports = function (app) {
         Pergunta.findByIdAndDelete(param.id, {
         })
             .then(data => {
-                res.status(201).send('Pergunta removida com sucesso' + data);
+                res.status(200).send('Pergunta removida com sucesso' + data);
             }).catch(e => {
-                res.status(400).send({
+                res.status(404).send({
                     message: 'Falha ao remover a pergunta !',
                     data: e
                 });
@@ -132,7 +121,10 @@ module.exports = function (app) {
                 });
             });
     });
+
 }
+
+//Funções auxiliares
 
 function ehVetorDePergunta(data) {
     if (data.length > 1) {
@@ -150,7 +142,7 @@ function persistaPerguntas(data, res, ehVetor) {
 
     if (!ehVetor) {
         pergunta.save()
-            .then(x => {
+            .then(_x => {
                 res.status(201).send({ message: 'Pergunta cadastrada com sucesso' });
             }).catch(e => {
                 res.status(400).send({

@@ -67,14 +67,14 @@ class perguntaService {
 
             return {
                 message: "Deve Existir apenas uma " +
-                    "condição verdadeira entre as respostas"
+                    "condição verdadeira entre as respostas para a Pergunta: " + resposta.pergunta
             };
 
         } else if (contFalse == 5) {
 
             return {
                 message: "Deve Existir uma " +
-                    "condição verdadeira entre as respostas"
+                    "condição verdadeira entre as respostas para a Pergunta: " + resposta.pergunta
             };
         }
     }
