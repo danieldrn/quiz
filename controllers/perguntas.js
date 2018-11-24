@@ -9,6 +9,7 @@ module.exports = function (app) {
 
         var data = req.body;
 
+        
         for (let pergunta of data) {
 
             var estaValido = valideEstadoDosObjetos(app, pergunta, res);

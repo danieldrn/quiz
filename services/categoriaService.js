@@ -7,6 +7,7 @@ class categoriaService {
         if (!data.nome) {
             return { status: false, message: "Nome é  Obrigatório" };
         }
+        return { status: true };
     }
 
 }

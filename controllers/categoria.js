@@ -9,12 +9,12 @@ module.exports = function (app) {
 
         var data = req.body;
 
-        for (let pergunta of data) {
+        for (let categoria of data) {
 
-            var estaValido = valideEstadoDosObjetos(app, pergunta, res);
+            var estaValido = valideEstadoDosObjetos(app, categoria, res);
 
             if (estaValido) {
-                persistaCategoria(pergunta, res, ehVetorDeCategoria(data));
+                persistaCategoria(categoria, res, ehVetorDeCategoria(data));
             }
         }
 
@@ -122,16 +122,16 @@ function ehVetorDeCategoria(data) {
 function persistaCategoria(data, res, ehVetor) {
 
     var mongoose = require('mongoose');
-    const Categoria = mongoose.model('Pergunta');
+    const Categoria = mongoose.model('Categoria');
     var categoria = new Categoria(data);
 
     if (!ehVetor) {
         categoria.save()
             .then(_x => {
-                res.status(201).send({ message: 'Pergunta cadastrada com sucesso' });
+                res.status(201).send({ message: 'Categoria cadastrada com sucesso' });
             }).catch(e => {
                 res.status(400).send({
-                    message: 'Falha ao persistir a pergunta',
+                    message: 'Falha ao persistir a Categoria',
                     data: e
                 });
             });
