@@ -1,3 +1,5 @@
+'use strict'
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -20,8 +22,7 @@ const schema = new Schema({
     perfil: {
         type: Number,
         required: true,
-        default: 1
-    },
+    }
 });
 
-module.exports = mongoose.model('usuario', schema);
+module.exports = mongoose.model('Usuario', schema);

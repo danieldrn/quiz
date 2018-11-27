@@ -4,6 +4,7 @@ var bodyParse = require('body-parser');
 var Product = require('../models/product');
 var Pergunta = require('../models/perguntas');
 var Categoria = require('../models/categoria');
+var Usuario = require('../models/usuario');
 
 module.exports = function(){
     
