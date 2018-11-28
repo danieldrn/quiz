@@ -1,4 +1,4 @@
-console.log("inicio do projeto");
+console.log("inicio do projeto/Api");
 
 var config = require('./config/custom-express');
 var app = config();
