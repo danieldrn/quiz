@@ -11,13 +11,14 @@
     <ion-item-divider color="light">
       PERGUNTA: 
     </ion-item-divider>
-    <ion-item>{{ pergunta.pergunta }}</ion-item>
-    <ion-item>{{ pergunta.categoria }}</ion-item>
+    <ion-item>pergunta: {{ pergunta.pergunta }}</ion-item>
+    <ion-item>cat: {{ pergunta.categoria }}</ion-item>
 
     <ion-list>
       <ion-item *ngFor="let resposta of pergunta.respostas" (click)="seleciona(pergunta)">
-        <h2>{{resposta.descricao}}</h2>
-        <span>{{resposta.condicao}}</span>
+        <h2>descricao: {{resposta.descricao}}</h2>
+        <span>label: {{resposta.label}}</span>
+        <h2>condicao: {{resposta.condicao}}</h2>
       </ion-item>
     </ion-list>
 

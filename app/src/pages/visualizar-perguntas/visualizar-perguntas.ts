@@ -110,7 +110,7 @@ export class VisualizarPerguntasPage {
 
   editar(){
     this.navCtrl.push(CadastroPerguntasPage.name, {
-      usuarioSelecionado: this.pergunta
+      perguntaSelecionada: this.pergunta
     });
   }
 

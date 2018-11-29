@@ -68,7 +68,7 @@ export class ListaPerguntasPage {
     this.navCtrl.push(CadastroPerguntasPage.name)
   }
 
-  seleciona(question: Usuario) {
+  seleciona(question: Pergunta) {
     this.navCtrl.push(VisualizarPerguntasPage.name, {
       perguntaSelecionada: question
     });

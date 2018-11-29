@@ -7,22 +7,109 @@
 </ion-header>
 
 <ion-content padding>
-    <form (ngSubmit)="verficaSalvarEditar()">
+  <form (ngSubmit)="verficaSalvarEditar()">
 
     <ion-item>
       <ion-label stacked>Pergunta: </ion-label>
-      <ion-input [(ngModel)]="pergunta.pergunta" name="pergunta"></ion-input>
+      <ion-input [(ngModel)]="descricao" name="pergunta"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Categoria: </ion-label>
-      <ion-input [(ngModel)]="pergunta.categoria" name="email"></ion-input>
+      <ion-input [(ngModel)]="categoria" name="categoria"></ion-input>
     </ion-item>
 
+    <!-- Respostas
+    this.label = "";
+        this.descricao = '';
+        this.condicao = false; -->
+
+    <ion-item>
+      <ion-label stacked>Respostas: </ion-label>
+    </ion-item>
+
+    <!-- 1 -->
+    <ion-item>
+      <ion-label stacked>label: </ion-label>
+      <ion-input [(ngModel)]="label1" name="label"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>descricao: </ion-label>
+      <ion-input [(ngModel)]="descricao1" name="categoria"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>condicao: </ion-label>
+      <ion-input [(ngModel)]="condicao1" name="condicao"></ion-input>
+    </ion-item>
+    <!-- 2 -->
+    <ion-item>
+      <ion-label stacked>label: </ion-label>
+      <ion-input [(ngModel)]="label2" name="label"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>descricao: </ion-label>
+      <ion-input [(ngModel)]="descricao2" name="categoria"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>condicao: </ion-label>
+      <ion-input [(ngModel)]="condicao2" name="condicao"></ion-input>
+    </ion-item>
+    <!-- 3 -->
+    <ion-item>
+      <ion-label stacked>label: </ion-label>
+      <ion-input [(ngModel)]="label3" name="label"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>descricao: </ion-label>
+      <ion-input [(ngModel)]="descricao3" name="categoria"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>condicao: </ion-label>
+      <ion-input [(ngModel)]="condicao3" name="condicao"></ion-input>
+    </ion-item>
+    <!-- 4 -->
+    <ion-item>
+      <ion-label stacked>label: </ion-label>
+      <ion-input [(ngModel)]="label4" name="label"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>descricao: </ion-label>
+      <ion-input [(ngModel)]="descricao4" name="categoria"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>condicao: </ion-label>
+      <ion-input [(ngModel)]="condicao4" name="condicao"></ion-input>
+    </ion-item>
+    <!-- 5 -->
+    <ion-item>
+      <ion-label stacked>label: </ion-label>
+      <ion-input [(ngModel)]="label5" name="label"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>descricao: </ion-label>
+      <ion-input [(ngModel)]="descricao5" name="categoria"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>condicao: </ion-label>
+      <ion-input [(ngModel)]="condicao5" name="condicao"></ion-input>
+    </ion-item>
+
+    <!-- eventos -->
+
     <div *ngIf="success.condicao" text-center margin-top>
-        <p ion-text color="primary">{{success.message}}</p>
+      <p ion-text color="primary">{{success.message}}</p>
     </div>
-    
+
     <div text-center margin-top>
       <button ion-button color="secondary">Salvar</button>
     </div>
