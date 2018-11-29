@@ -1,7 +1,6 @@
 var express = require('express');
 var consign = require('consign');
 var bodyParse = require('body-parser');
-var Product = require('../models/product');
 var Pergunta = require('../models/perguntas');
 var Categoria = require('../models/categoria');
 var Usuario = require('../models/usuario');

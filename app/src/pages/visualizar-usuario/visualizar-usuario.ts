@@ -91,7 +91,8 @@ export class VisualizarUsuarioPage {
      * Método que chama o recurso /usuário com id do usuário fazendo uso
      * do verbo delete. Retorna message de sucesso ou exceção
      */
-    this._http.delete("http://localhost:3000/usuario/" + this.usuario.id)
+    debugger;
+    this._http.delete("http://localhost:3000/usuario/" + this.usuario._id)
     .subscribe(
       (message) => {
         /** Esconde o alerta de carregando */

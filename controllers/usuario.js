@@ -21,7 +21,7 @@ module.exports = function (app) {
                 res.status(200).send(data);
             }).catch(e => {
                 res.status(404).send({
-                    message: 'Usuario não encontrados !!',
+                    message: 'Usuarios não encontrados !!',
                     data: e
                 });
             });
@@ -36,7 +36,7 @@ module.exports = function (app) {
                 res.status(200).send(data);
             }).catch(e => {
                 res.status(404).send({
-                    message: 'Usuario não encontrados !!',
+                    message: 'Usuario não encontrado !!',
                     data: e
                 });
             });
@@ -55,50 +55,30 @@ module.exports = function (app) {
             }
         })
             .then(data => {
-                res.status(201).send('Pergunta atualizada com sucesso' + data);
+                res.status(201).send('Usuario atualizado com sucesso' + data);
             }).catch(e => {
                 res.status(400).send({
-                    message: 'Falha ao atualizar a pergunta !',
+                    message: 'Falha ao atualizar o usuario !',
                     data: e
                 });
             });
     });
 
-    app.delete('/pergunta/:id', function (req, res) {
+    app.delete('/usuario/:id', function (req, res) {
 
         var param = req.params;
 
         usuario.findByIdAndDelete(param.id, {
         })
             .then(data => {
-                res.status(200).send('Pergunta removida com sucesso' + data);
+                res.status(200).send('Usuario removida com sucesso' + data);
             }).catch(e => {
                 res.status(404).send({
-                    message: 'Falha ao remover a pergunta !',
+                    message: 'Falha ao remover o usuario !',
                     data: e
                 });
             });
     });
-
-    app.delete('/pergunta/desativar/:id', function (req, res) {
-
-        var param = req.params;
-
-        usuario.findByIdAndUpdate(param.id, {
-            $set: {
-                estaAtiva: false
-            }
-        })
-            .then(data => {
-                res.status(201).send('usuario desativada com sucesso' + data);
-            }).catch(e => {
-                res.status(400).send({
-                    message: 'Falha ao desativar a pergunta !',
-                    data: e
-                });
-            });
-    });
-
 }
 
 //Funções auxiliares
