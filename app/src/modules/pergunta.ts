@@ -1,6 +1,7 @@
 import { Resposta } from "./Resposta";
 
 export class Pergunta {
+    _id:number;
     id: number;
     pergunta: string;
     respostas: Resposta[];

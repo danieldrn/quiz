@@ -92,7 +92,7 @@ module.exports = function (app) {
 
         var param = req.params;
 
-        Pergunta.findByIdAndDelete(param.id, {
+        Pergunta.findByIdAndDelete(param._id, {
         })
             .then(data => {
                 res.status(200).send('Pergunta removida com sucesso' + data);
