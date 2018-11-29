@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { Usuario } from '../../modules/usuario';
 import { HttpClient } from '@angular/common/http';
 import { CadastroUsuarioPage } from '../cadastro-usuario/cadastro-usuario';
-import { ListaUsuarioPage } from '../lista-usuario/lista-usuario';
 
 /**
  * Controller responsável por visualizar os dados de usuário e escolha
@@ -134,7 +133,6 @@ export class VisualizarUsuarioPage {
       /**permite eu enviar a página anterior um valor  idExcluirUser contendo
        * o id do usuário excluído
       */
-      debugger;
       this.navCtrl.getPrevious().data.idExcluirUser = this.usuario._id;
     }
    }

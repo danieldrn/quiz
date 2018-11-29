@@ -131,7 +131,7 @@ export class ListaUsuarioPage {
 
       /**obtenho o id do usuario deletado */
       var idExcluirUser = this.navParams.get('idExcluirUser');
-      debugger;
+      
       /** uso o método filter da minha lista, para retornar os objetos que tiverem id diferente do id de retorno*/
       this.usuarios = this.usuarios.filter(function(obj){
         return obj._id !== idExcluirUser;
