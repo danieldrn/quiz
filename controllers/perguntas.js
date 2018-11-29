@@ -3,13 +3,11 @@
 module.exports = function (app) {
 
     const mongoose = require('mongoose');
-    const Pergunta = mongoose.model('Pergunta');
+    const pergunta = mongoose.model('Pergunta');
 
     app.post('/pergunta', function (req, res) {
 
         var data = req.body;
-
-        
         for (let pergunta of data) {
 
             var estaValido = valideEstadoDosObjetos(app, pergunta, res);
@@ -18,14 +16,12 @@ module.exports = function (app) {
                 persistaPerguntas(pergunta, res, ehVetorDePergunta(data));
             }
         }
-
         res.status(201).send({ message: 'Perguntas cadastrada com sucesso' });
-
     });
 
     app.get('/pergunta', function (req, res) {
 
-        Pergunta.find({}, 'pergunta respostas categoria')
+        pergunta.find({}, 'pergunta respostas categoria')
             .then(data => {
                 res.status(200).send(data);
             }).catch(e => {
@@ -40,7 +36,7 @@ module.exports = function (app) {
 
         var param = req.params;
 
-        Pergunta.findById(param.id, 'pergunta respostas categoria')
+        pergunta.findById(param.id, 'pergunta respostas categoria')
             .then(data => {
                 res.status(200).send(data);
             }).catch(e => {
@@ -55,7 +51,7 @@ module.exports = function (app) {
 
         var param = req.params;
 
-        Pergunta.find({ pergunta: param.pergunta }, 'pergunta respostas categoria')
+        pergunta.find({ pergunta: param.pergunta }, 'pergunta respostas categoria')
             .then(data => {
                 res.status(200).send(data);
             }).catch(e => {
@@ -71,7 +67,7 @@ module.exports = function (app) {
         var param = req.params;
         var data = req.body;
 
-        Pergunta.findByIdAndUpdate(param.id, {
+        pergunta.findByIdAndUpdate(param.id, {
             $set: {
                 pergunta: data.pergunta,
                 respostas: data.respostas,
@@ -92,37 +88,17 @@ module.exports = function (app) {
 
         var param = req.params;
 
-        Pergunta.findByIdAndDelete(param._id, {
-        })
-            .then(data => {
-                res.status(200).send('Pergunta removida com sucesso' + data);
-            }).catch(e => {
+        pergunta.deleteOne({ "_id": param.id }, function () { }).exec()
+            .then(
+                res.status(200).send({ message: 'Pergunta Excluido com sucesso' })
+            ).catch(error => {
                 res.status(404).send({
-                    message: 'Falha ao remover a pergunta !',
-                    data: e
+                    message: 'Falha ao remover a Pergunta !',
+                    data: error
                 });
-            });
+            })
     });
-
-    app.delete('/pergunta/desativar/:id', function (req, res) {
-
-        var param = req.params;
-
-        Pergunta.findByIdAndUpdate(param.id, {
-            $set: {
-                estaAtiva: false
-            }
-        })
-            .then(data => {
-                res.status(201).send('Pergunta desativada com sucesso' + data);
-            }).catch(e => {
-                res.status(400).send({
-                    message: 'Falha ao desativar a pergunta !',
-                    data: e
-                });
-            });
-    });
-
+    
 }
 
 //Funções auxiliares

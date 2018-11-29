@@ -57,7 +57,7 @@ export class VisualizarPerguntasPage {
 
 
   excluir() {
-
+    debugger;
     this.load.present();
     this._isExcluir = true;
     this._http.delete("http://localhost:3000/pergunta/" + this.pergunta._id)

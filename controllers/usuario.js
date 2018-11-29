@@ -68,7 +68,7 @@ module.exports = function (app) {
 
         var param = req.params;
 
-        usuario.deleteOne({ "_id": param._id}, function () { }).exec()
+        usuario.deleteOne({ "_id": param.id}, function () { }).exec()
         .then(
             res.status(200).send({ message: 'Usuario Excluido com sucesso' })
         ).catch(error => {

@@ -72,7 +72,7 @@ module.exports = function (app) {
             });
     });
 
-    app.delete('/pergunta/:id', function (req, res) {
+    app.delete('/categoria/:id', function (req, res) {
 
         var param = req.params;
 
@@ -88,7 +88,7 @@ module.exports = function (app) {
             });
     });
 
-    app.delete('/pergunta/desativar/:id', function (req, res) {
+    app.delete('/categoria/desativar/:id', function (req, res) {
 
         var param = req.params;
 
