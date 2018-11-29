@@ -12,11 +12,18 @@ module.exports = function(){
     app.use(bodyParse.urlencoded({ extended: false }));
     app.use(bodyParse.json());
     
+    app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "http://localhost:8100");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+        next();
+    });
+
     app.use(function (err, req, res, next) {
         console.error(err.stack);
         res.status(500).send('ACONTECEU UM ERRO \r\nDETALHES DO ERRO \r\n' + err.stack);
     });
-
+  
     consign()
         .include('controllers')
         .then('persistencia')

@@ -68,16 +68,15 @@ module.exports = function (app) {
 
         var param = req.params;
 
-        usuario.findByIdAndDelete(param.id, {
-        })
-            .then(data => {
-                res.status(200).send('Usuario removida com sucesso' + data);
-            }).catch(e => {
-                res.status(404).send({
-                    message: 'Falha ao remover o usuario !',
-                    data: e
-                });
+        usuario.deleteOne({ "_id": param.id }, function () { }).exec()
+        .then(
+            res.status(200).send({ message: 'Usuario Excluido com sucesso' })
+        ).catch(error => {
+            res.status(404).send({
+                message: 'Falha ao remover o usuario !',
+                data: error
             });
+        })
     });
 }
 
